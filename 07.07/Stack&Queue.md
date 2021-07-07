@@ -92,8 +92,14 @@ void push(Stack* stack, int data)
 
 int pop(Stack* stack)
 {
-	int data = stack->top->data;
-	stack->top = stack->top->next;
+	if (stack->top == NULL) {
+		printf("스택 언더플로우 발생!\n");
+		return;
+	}
+	Node* node = stack->top;
+	int data = node->data;
+	stack->top = node->next;
+	free(node);
 	return data;
 }
 
@@ -219,8 +225,14 @@ void push(Queue *queue, int data)
 
 int pop(Queue* queue)
 {
-	int data = queue->front->data;
-	queue->front = queue->front->next;
+	if (queue->count == 0) {
+		printf("큐 언더플로우 발생!!\n");
+		return;
+	}
+	Node* node = queue->front;
+	int data = node->data;
+	queue->front = node->next;
+	free(node);
 	return data;
 }
 
